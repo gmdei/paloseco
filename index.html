@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Palo Seco - Taller multidisciplinario de arte, diseño, restauración y manualidades en República Dominicana.">
+    <title>Palo Seco - Creatividad, Arte y Diseño</title>
+    <link rel="icon" type="image/svg+xml" href="SVG/favicon.svg">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Identity Services client library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-link" id="logo-link">
+                <img src="SVG/logo.svg" alt="Palo Seco Logo" class="logo-img">
+                <span class="logo-text">Palo Seco</span>
+            </a>
+            
+            <button class="nav-toggle" aria-label="Abrir menú" id="nav-toggle">
+                <span class="hamburger"></span>
+            </button>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#calendario" class="nav-link">Calendario</a></li>
+                    <li><a href="#galeria" class="nav-link">Catálogo</a></li>
+                    <li>
+                        <button id="admin-nav-btn" class="nav-link admin-trigger-btn" aria-label="Administración">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gear-icon" style="width: 20px; height: 20px; vertical-align: middle;">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </button>
+                    </li>
+                    <li><a href="#contacto" class="nav-link btn-header">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-subtitle">Creatividad · Arte · Diseño</span>
+                <h1 class="hero-title" id="editable-hero-title">Artesanías y educación artística elevadas a su mayor expresión</h1>
+                <p class="hero-description" id="editable-hero-desc">
+                    Combinamos el rescate de piezas en madera con la educación artística y la creación de obras únicas que resaltan la identidad local.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary">Ver Servicios</a>
+                    <a href="#calendario" class="btn btn-secondary">Próximos Talleres</a>
+                </div>
+            </div>
+            <div class="hero-featured-card">
+                <div class="card-glass">
+                    <span class="badge">Exclusivo</span>
+                    <h3>Bendición de Puertas</h3>
+                    <p>Obra de arte original con certificado de derecho de autor y marca registrada.</p>
+                    <a href="#galeria" class="card-link">Ver en Catálogo →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Nuestras Propuestas</span>
+                <h2 class="section-title">Servicios y Especialidades</h2>
+                <p class="section-subtitle">Descubre el abanico de experiencias artísticas y servicios profesionales que ofrecemos en Palo Seco.</p>
+            </div>
+            
+            <div class="services-grid" id="services-container">
+                <!-- Service cards will load here (dynamic to allow edit) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section id="calendario" class="calendar-section">
+        <div class="container">
+            <div class="calendar-layout">
+                <div class="calendar-info">
+                    <span class="section-tag">Participa</span>
+                    <h2 class="section-title">Calendario de Actividades</h2>
+                    <p class="section-subtitle">Únete a nuestros talleres interactivos y eventos especiales. Reserva tu cupo seleccionando una fecha marcada.</p>
+                    
+                    <!-- Selected Event Details Box -->
+                    <div class="event-details-card" id="event-details-box">
+                        <div class="event-details-placeholder">
+                            <p>Selecciona un día del calendario con evento (marcado con un punto) para ver la información de la actividad.</p>
+                        </div>
+                        <div class="event-details-content hidden" id="event-details-content">
+                            <span class="event-tag" id="event-detail-tag">Taller</span>
+                            <h3 id="event-detail-title">Nombre de la Actividad</h3>
+                            <p class="event-time"><strong id="event-detail-time">10:00 AM - 1:00 PM</strong></p>
+                            <p id="event-detail-desc">Descripción del taller.</p>
+                            <a href="#contacto" id="event-detail-whatsapp-btn" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Inscribirse</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calendar-widget-container">
+                    <div class="calendar-widget">
+                        <div class="calendar-header">
+                            <button id="prev-month" aria-label="Mes anterior">&lt;</button>
+                            <h3 id="calendar-month-year">Agosto 2026</h3>
+                            <button id="next-month" aria-label="Siguiente mes">&gt;</button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <div>Do</div>
+                            <div>Lu</div>
+                            <div>Ma</div>
+                            <div>Mi</div>
+                            <div>Ju</div>
+                            <div>Vi</div>
+                            <div>Sá</div>
+                        </div>
+                        <div class="calendar-days" id="calendar-days">
+                            <!-- JS will populate days here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Catalog Section -->
+    <section id="galeria" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Galería de Obras</span>
+                <h2 class="section-title">Nuestro Catálogo de Manualidades</h2>
+                <p class="section-subtitle">Una muestra visual de nuestros proyectos, piezas restauradas, bendiciones de puertas y talleres.</p>
+                
+                <!-- Category Filter Buttons -->
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">Todo</button>
+                    <button class="filter-btn" data-filter="madera">Madera / Restauración</button>
+                    <button class="filter-btn" data-filter="resina">Taller y Resina</button>
+                    <button class="filter-btn" data-filter="sacro">Arte Sacro</button>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Dynamic or default images load here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact Section -->
+    <footer id="contacto" class="main-footer">
+        <div class="container footer-top">
+            <div class="footer-brand">
+                <a href="#" class="footer-logo">
+                    <img src="SVG/logo.svg" alt="Palo Seco Logo" class="logo-img-footer">
+                    <span>Palo Seco</span>
+                </a>
+                <p class="footer-brand-text">
+                    Llevamos la artesanía, el diseño y la educación artística a un nivel premium, rescatando la identidad local y redefiniendo el arte manual.
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#calendario">Calendario de Actividades</a></li>
+                    <li><a href="#galeria">Catálogo</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact-info">
+                <h4>Contacto</h4>
+                <p>📍 República Dominicana</p>
+                <p>✉️ <a href="mailto:info@palosecord.com">info@palosecord.com</a></p>
+                <p>📞 +1 (829) 555-0199</p>
+            </div>
+
+            <div class="footer-social-wrapper">
+                <h4>Conéctate</h4>
+                <p>Síguenos en nuestras redes o chatea con nosotros para cotizaciones y cupos de talleres.</p>
+                <div class="social-icons">
+                    <!-- WhatsApp (Original Brand Color Green: #25D366) -->
+                    <a href="https://wa.me/18295550199" target="_blank" rel="noopener noreferrer" class="social-icon whatsapp-btn" aria-label="WhatsApp">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.464L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.757 1.453 5.356 0 9.713-4.359 9.716-9.721.002-2.597-1.005-5.038-2.839-6.871-1.833-1.833-4.272-2.84-6.873-2.842-5.36 0-9.72 4.36-9.723 9.724-.001 1.705.474 3.371 1.375 4.805l-.972 3.548 3.65-.957zm11.524-7.093c-.313-.156-1.854-.915-2.141-1.019-.287-.104-.497-.156-.707.156-.21.312-.811 1.019-.993 1.228-.182.208-.364.234-.677.078-.312-.156-1.32-.486-2.515-1.55-.93-.829-1.558-1.854-1.74-2.165-.182-.313-.02-.482.137-.638.141-.14.313-.365.47-.547.156-.182.21-.312.313-.52.104-.208.052-.39-.026-.547-.079-.156-.707-1.702-.97-2.33-.256-.612-.516-.529-.708-.539-.183-.01-.392-.01-.601-.01-.208 0-.547.078-.833.39-.286.313-1.096 1.071-1.096 2.613 0 1.541 1.121 3.029 1.277 3.238.156.208 2.207 3.37 5.348 4.729.747.322 1.33.515 1.786.66.752.239 1.437.205 1.977.125.602-.09 1.854-.758 2.115-1.456.26-.698.26-1.298.182-1.424-.078-.126-.287-.208-.6-.364z"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Instagram (Original Gradient background style) -->
+                    <a href="https://instagram.com/palosecord" target="_blank" rel="noopener noreferrer" class="social-icon instagram-btn" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Facebook (Original Brand Color Blue: #1877F2) -->
+                    <a href="https://facebook.com/palosecord" target="_blank" rel="noopener noreferrer" class="social-icon facebook-btn" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>&copy; 2026 Palo Seco. Todos los derechos reservados. Diseñado con pasión.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacidad</a>
+                    <a href="#">Términos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Sign-In & Authentication Modal -->
+    <div id="auth-modal" class="modal-overlay hidden">
+        <div class="modal-box auth-box">
+            <button class="modal-close" id="auth-close-btn">&times;</button>
+            <div class="auth-header">
+                <img src="SVG/logo.svg" alt="Logo" class="auth-logo">
+                <h3>Acceso Administrativo</h3>
+                <p>Inicia sesión únicamente con la cuenta autorizada de Google.</p>
+            </div>
+            
+            <!-- Real Google Login Button Wrapper -->
+            <div class="google-btn-wrapper">
+                <div id="google-signin-button"></div>
+            </div>
+            
+            <div class="auth-divider">
+                <span>O prueba de forma local</span>
+            </div>
+
+            <!-- Developer Simulated login for easy verification of email check -->
+            <div class="simulated-login-form">
+                <div class="form-group">
+                    <label for="sim-email">Correo Electrónico Google:</label>
+                    <input type="email" id="sim-email" placeholder="ej. usuario@gmail.com" required>
+                </div>
+                <button id="sim-login-submit" class="btn btn-primary w-100">Iniciar Sesión de Prueba</button>
+                <p class="auth-warning">El panel de control sólo se desbloqueará si el correo es exactamente <strong>mgregoriomartinez@gmail.com</strong>.</p>
+                <div id="auth-error-msg" class="auth-error hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Administrative Panel Dashboard Modal -->
+    <div id="admin-panel-modal" class="modal-overlay hidden">
+        <div class="modal-box admin-dashboard-box">
+            <div class="admin-panel-header">
+                <div class="admin-user-info">
+                    <span class="admin-avatar">A</span>
+                    <div>
+                        <h4>Administrador Palo Seco</h4>
+                        <p id="admin-logged-email">mgregoriomartinez@gmail.com</p>
+                    </div>
+                </div>
+                <div class="admin-header-actions">
+                    <button id="admin-logout-btn" class="btn btn-secondary btn-sm">Cerrar Sesión</button>
+                    <button class="modal-close-dashboard" id="admin-close-btn">&times;</button>
+                </div>
+            </div>
+
+            <div class="admin-panel-body">
+                <!-- Sidebar Tabs -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="tab-textos">Información</button>
+                    <button class="tab-btn" data-tab="tab-calendario">Calendario</button>
+                    <button class="tab-btn" data-tab="tab-galeria">Galería / Catálogo</button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="admin-tab-content">
+                    
+                    <!-- Tab 1: Edit copy info -->
+                    <div id="tab-textos" class="tab-pane active">
+                        <h3>Editar Información General</h3>
+                        <p class="tab-description">Actualiza los textos principales de la página web al instante.</p>
+                        
+                        <div class="form-group">
+                            <label for="edit-hero-title">Título Principal (Hero):</label>
+                            <input type="text" id="edit-hero-title">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-hero-desc">Descripción (Hero):</label>
+                            <textarea id="edit-hero-desc" rows="4"></textarea>
+                        </div>
+                        <button id="save-info-btn" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+
+                    <!-- Tab 2: Manage Calendar events -->
+                    <div id="tab-calendario" class="tab-pane">
+                        <h3>Gestionar Actividades del Calendario</h3>
+                        <p class="tab-description">Agrega nuevas fechas de talleres y eventos, o elimina las existentes.</p>
+                        
+                        <div class="admin-split-layout">
+                            <div class="admin-form-side">
+                                <h4>Agregar Nueva Actividad</h4>
+                                <div class="form-group">
+                                    <label for="new-event-date">Fecha:</label>
+                                    <input type="date" id="new-event-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-event-title">Título del Evento:</label>
+                                    <input type="text" id="new-event-title" placeholder="Ej. Taller de Resina Epóxica" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-event-tag">Categoría (Tag):</label>
+                                    <input type="text" id="new-event-tag" placeholder="Ej. Resina, Madera, Pintura" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-event-time">Horario:</label>
+                                    <input type="text" id="new-event-time" placeholder="Ej. 10:00 AM - 1:00 PM" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-event-desc">Descripción:</label>
+                                    <textarea id="new-event-desc" rows="3" placeholder="Detalles de la actividad..." required></textarea>
+                                </div>
+                                <button id="add-event-btn" class="btn btn-primary w-100">Agregar Evento</button>
+                            </div>
+                            
+                            <div class="admin-list-side">
+                                <h4>Actividades Registradas</h4>
+                                <div class="admin-list-container" id="admin-events-list">
+                                    <!-- Dynamic list of events with Delete button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Manage Gallery/Catalog -->
+                    <div id="tab-galeria" class="tab-pane">
+                        <h3>Gestionar Galería de Proyectos</h3>
+                        <p class="tab-description">Añade imágenes al catálogo mediante URL de imagen o elimina las que ya no desees mostrar.</p>
+                        
+                        <div class="admin-split-layout">
+                            <div class="admin-form-side">
+                                <h4>Agregar Imagen al Catálogo</h4>
+                                <div class="form-group">
+                                    <label for="new-img-url">Enlace/URL de la Imagen:</label>
+                                    <input type="url" id="new-img-url" placeholder="https://ejemplo.com/foto.jpg" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-img-alt">Texto Alternativo / Título:</label>
+                                    <input type="text" id="new-img-alt" placeholder="Ej. Bendición de puertas estilo sacro" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-img-desc">Descripción Breve:</label>
+                                    <input type="text" id="new-img-desc" placeholder="Ej. Detalle tallado a mano" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-img-cat">Categoría del Catálogo:</label>
+                                    <select id="new-img-cat" required>
+                                        <option value="madera">Madera / Restauración</option>
+                                        <option value="resina">Taller y Resina</option>
+                                        <option value="sacro">Arte Sacro</option>
+                                    </select>
+                                </div>
+                                <button id="add-img-btn" class="btn btn-primary w-100">Agregar al Catálogo</button>
+                            </div>
+                            
+                            <div class="admin-list-side">
+                                <h4>Imágenes en la Galería</h4>
+                                <div class="admin-list-container" id="admin-images-list">
+                                    <!-- Dynamic list of images with Delete button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
