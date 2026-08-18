@@ -357,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         adminLogoutBtn.addEventListener('click', () => {
             isAdminLoggedIn = false;
             localStorage.removeItem('ps_admin_logged');
+            localStorage.removeItem('ps_admin_email');
             adminPanelModal.classList.add('hidden');
             adminNavBtn.classList.remove('active');
         });
@@ -364,7 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check login state on load
     if (localStorage.getItem('ps_admin_logged') === 'true') {
-        verifyAndLogin(ADMIN_EMAIL);
+        isAdminLoggedIn = true;
+        adminNavBtn.classList.add('active');
     }
 
 
