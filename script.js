@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
         heroDesc: "Combinamos el rescate de piezas en madera con la educación artística y la creación de obras únicas que resaltan la identidad local."
     };
 
+    let carouselImages = JSON.parse(localStorage.getItem('ps_carousel_images')) || [
+        "PHOTO-2026-07-07-13-41-25.jpg",
+        "PHOTO-2026-07-07-13-41-28.jpg",
+        "PHOTO-2026-07-07-13-41-30.jpg"
+    ];
+    let currentSlideIndex = 0;
+    let carouselIntervalId = null;
+
     let calendarEvents = JSON.parse(localStorage.getItem('ps_calendar_events')) || {
         "2026-7-8": {
             title: "Taller de Pintura Textil",
@@ -78,6 +86,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `).join('');
         }
+    }
+
+    function renderHeroCarousel() {
+        const carouselContainer = document.getElementById('hero-carousel');
+        if (!carouselContainer) return;
+        
+        if (carouselImages.length === 0) {
+            carouselContainer.innerHTML = '<div class="hero-slide active" style="background-color: var(--color-bg-alt);"></div>';
+            return;
+        }
+        
+        carouselContainer.innerHTML = carouselImages.map((imgSrc, index) => `
+            <div class="hero-slide ${index === 0 ? 'active' : ''}" style="background-image: url('${imgSrc}');"></div>
+        `).join('');
+        
+        currentSlideIndex = 0;
+        startCarouselTimer();
+    }
+
+    function startCarouselTimer() {
+        if (carouselIntervalId) clearInterval(carouselIntervalId);
+        if (carouselImages.length <= 1) return;
+        
+        carouselIntervalId = setInterval(() => {
+            const slides = document.querySelectorAll('#hero-carousel .hero-slide');
+            if (slides.length === 0) return;
+            
+            slides[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            slides[currentSlideIndex].classList.add('active');
+        }, 5000);
     }
 
     function renderGallery() {
@@ -368,6 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Render active lists in admin panel
             renderAdminEventsList();
             renderAdminImagesList();
+            renderAdminCarouselList();
         }
     }
 
@@ -523,9 +563,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Manage Carousel images inside panel
+    const addCarouselBtn = document.getElementById('add-carousel-btn');
+    function renderAdminCarouselList() {
+        const container = document.getElementById('admin-carousel-list');
+        if (!container) return;
+
+        container.innerHTML = carouselImages.map((img, index) => `
+            <div class="admin-list-item">
+                <div class="admin-list-item-info">
+                    <strong>Imagen ${index + 1}</strong>
+                    <span class="admin-url-text">${img}</span>
+                </div>
+                <button class="btn-delete" data-index="${index}">Quitar</button>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.getAttribute('data-index'));
+                carouselImages.splice(idx, 1);
+                localStorage.setItem('ps_carousel_images', JSON.stringify(carouselImages));
+                renderAdminCarouselList();
+                renderHeroCarousel();
+            });
+        });
+    }
+
+    if (addCarouselBtn) {
+        addCarouselBtn.addEventListener('click', () => {
+            const srcInput = document.getElementById('new-carousel-url');
+            const src = srcInput.value.trim();
+
+            if (!src) {
+                alert("Por favor ingrese la URL de la imagen.");
+                return;
+            }
+
+            carouselImages.push(src);
+            localStorage.setItem('ps_carousel_images', JSON.stringify(carouselImages));
+
+            srcInput.value = "";
+            renderAdminCarouselList();
+            renderHeroCarousel();
+            alert("¡Imagen añadida con éxito al carrusel!");
+        });
+    }
+
 
     // --- INITIAL RENDER EXECUTION ---
     renderStaticContent();
+    renderHeroCarousel();
     renderCalendar(activeYear, activeMonth);
     renderGallery();
 

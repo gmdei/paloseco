@@ -51,6 +51,7 @@
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-section">
+        <div id="hero-carousel" class="hero-carousel"></div>
         <div class="hero-bg-overlay"></div>
         <div class="hero-container">
             <div class="hero-content">
@@ -286,6 +287,7 @@
                     <button class="tab-btn active" data-tab="tab-textos">Información</button>
                     <button class="tab-btn" data-tab="tab-calendario">Calendario</button>
                     <button class="tab-btn" data-tab="tab-galeria">Galería / Catálogo</button>
+                    <button class="tab-btn" data-tab="tab-carrusel">Carrusel Hero</button>
                 </div>
 
                 <!-- Tab Contents -->
@@ -378,10 +380,29 @@
                                 <button id="add-img-btn" class="btn btn-primary w-100">Agregar al Catálogo</button>
                             </div>
                             
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Manage Hero Carousel -->
+                    <div id="tab-carrusel" class="tab-pane">
+                        <h3>Gestionar Carrusel del Fondo (Hero)</h3>
+                        <p class="tab-description">Añade imágenes al carrusel de fondo usando su URL/Enlace o elimina las que ya no desees mostrar.</p>
+                        
+                        <div class="admin-split-layout">
+                            <div class="admin-form-side">
+                                <h4>Agregar Imagen al Carrusel</h4>
+                                <div class="form-group">
+                                    <label for="new-carousel-url">Enlace/URL de la Imagen:</label>
+                                    <input type="url" id="new-carousel-url" placeholder="https://ejemplo.com/foto.jpg" required>
+                                </div>
+                                <button id="add-carousel-btn" class="btn btn-primary w-100">Agregar al Carrusel</button>
+                            </div>
+                            
                             <div class="admin-list-side">
-                                <h4>Imágenes en la Galería</h4>
-                                <div class="admin-list-container" id="admin-images-list">
-                                    <!-- Dynamic list of images with Delete button -->
+                                <h4>Imágenes en el Carrusel</h4>
+                                <div class="admin-list-container" id="admin-carousel-list">
+                                    <!-- Dynamic list of carousel images with Delete button -->
                                 </div>
                             </div>
                         </div>
