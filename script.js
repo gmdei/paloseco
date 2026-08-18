@@ -5,8 +5,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- STATE MANAGEMENT ---
-    const ADMIN_EMAIL = "mgregoriomartinez@gmail.com";
     let isAdminLoggedIn = false;
+
+    let administrators = JSON.parse(localStorage.getItem('ps_administrators')) || [
+        { email: "mgregoriomartinez@gmail.com", code: "12345" }
+    ];
 
     // Load states from LocalStorage or Fallbacks
     let siteInfo = JSON.parse(localStorage.getItem('ps_site_info')) || {
@@ -301,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 openAdminPanel();
             } else {
                 authModal.classList.remove('hidden');
-                initGoogleSignIn();
             }
         });
     }
@@ -314,50 +316,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Google Sign-In GIS Initialization
-    function initGoogleSignIn() {
-        if (typeof google !== 'undefined') {
-            google.accounts.id.initialize({
-                client_id: '999999999999-mockclientid.apps.googleusercontent.com', // MOCK ID - will run locally
-                callback: handleGoogleCredentialResponse
-            });
-            google.accounts.id.renderButton(
-                document.getElementById('google-signin-button'),
-                { theme: 'outline', size: 'large', text: 'signin_with' }
-            );
-        }
-    }
-
-    // Callback on successful Google Sign-In
-    function handleGoogleCredentialResponse(response) {
-        try {
-            // Decodes standard JWT payload returned by Google
-            const base64Url = response.credential.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
-            const googleUser = JSON.parse(jsonPayload);
-            verifyAndLogin(googleUser.email);
-        } catch (e) {
-            showAuthError("Error decodificando credenciales de Google.");
-        }
-    }
-
-    // Simulated local fallback sign in
+    // Admin login form submit
     if (simLoginSubmit) {
         simLoginSubmit.addEventListener('click', (e) => {
             e.preventDefault();
             const inputEmail = simEmailInput.value.trim().toLowerCase();
-            verifyAndLogin(inputEmail);
+            const inputCode = document.getElementById('sim-code').value.trim();
+            verifyAndLogin(inputEmail, inputCode);
         });
     }
 
-    function verifyAndLogin(email) {
-        if (email === ADMIN_EMAIL) {
+    function verifyAndLogin(email, code) {
+        const admin = administrators.find(a => a.email.toLowerCase() === email.toLowerCase() && a.code === code);
+        if (admin) {
             isAdminLoggedIn = true;
             localStorage.setItem('ps_admin_logged', 'true');
+            localStorage.setItem('ps_admin_email', email);
             
             // Hide auth box, open Dashboard
             authModal.classList.add('hidden');
@@ -367,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Change nav button look
             adminNavBtn.classList.add('active');
         } else {
-            showAuthError("Acceso denegado: El correo no está autorizado.");
+            showAuthError("Credenciales incorrectas o acceso no autorizado.");
         }
     }
 
@@ -400,6 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (adminPanelModal) {
             adminPanelModal.classList.remove('hidden');
             
+            const loggedEmail = localStorage.getItem('ps_admin_email') || "Administrador";
+            document.getElementById('admin-logged-email').textContent = loggedEmail;
+            
             // Populate form fields with current states
             document.getElementById('edit-hero-title').value = siteInfo.heroTitle;
             document.getElementById('edit-hero-desc').value = siteInfo.heroDesc;
@@ -408,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderAdminEventsList();
             renderAdminImagesList();
             renderAdminCarouselList();
+            renderAdminUsersList();
         }
     }
 
@@ -607,6 +585,71 @@ document.addEventListener('DOMContentLoaded', () => {
             renderAdminCarouselList();
             renderHeroCarousel();
             alert("¡Imagen añadida con éxito al carrusel!");
+        });
+    }
+
+    // Manage Administrators inside panel
+    const addAdminBtn = document.getElementById('add-admin-btn');
+    function renderAdminUsersList() {
+        const container = document.getElementById('admin-list-container');
+        if (!container) return;
+
+        container.innerHTML = administrators.map((admin, index) => `
+            <div class="admin-list-item">
+                <div class="admin-list-item-info">
+                    <strong>${admin.email}</strong>
+                    <span>Código: ••••••</span>
+                </div>
+                <button class="btn-delete" data-index="${index}" ${administrators.length <= 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>Quitar</button>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (administrators.length <= 1) {
+                    alert("Debe haber al menos un administrador en el sistema.");
+                    return;
+                }
+                const idx = parseInt(btn.getAttribute('data-index'));
+                const removedEmail = administrators[idx].email;
+                
+                administrators.splice(idx, 1);
+                localStorage.setItem('ps_administrators', JSON.stringify(administrators));
+                renderAdminUsersList();
+                
+                const currentEmail = localStorage.getItem('ps_admin_email');
+                if (currentEmail && currentEmail.toLowerCase() === removedEmail.toLowerCase()) {
+                    adminLogoutBtn.click();
+                }
+            });
+        });
+    }
+
+    if (addAdminBtn) {
+        addAdminBtn.addEventListener('click', () => {
+            const emailInput = document.getElementById('new-admin-email');
+            const codeInput = document.getElementById('new-admin-code');
+            
+            const email = emailInput.value.trim().toLowerCase();
+            const code = codeInput.value.trim();
+
+            if (!email || !code) {
+                alert("Por favor ingrese el correo y el código del nuevo administrador.");
+                return;
+            }
+
+            if (administrators.some(a => a.email.toLowerCase() === email)) {
+                alert("Este administrador ya existe.");
+                return;
+            }
+
+            administrators.push({ email, code });
+            localStorage.setItem('ps_administrators', JSON.stringify(administrators));
+
+            emailInput.value = "";
+            codeInput.value = "";
+            renderAdminUsersList();
+            alert("¡Administrador añadido con éxito!");
         });
     }
 
